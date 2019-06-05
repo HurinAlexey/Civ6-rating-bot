@@ -150,16 +150,21 @@ client.on('message', message => {
         modifier = foundedModifier[0].substr(1, foundedModifier[0].length - 2)
     }
 
-    actions.getTopUsers(count, modifier).then(users => {
+    actions.getTopUsers(count).then(users => {
       let ratingTable = ''
       
       users.map((item, index) => {
         ratingTable += `**${index + 1}.** <@${item.discordId}>\t "${item.rank}"\t ${item.ratingScore}\n`
       })
 
-      message.author.createDM().then((dm) => {
-        dm.send(ratingTable)
-      })
+      if (modifier === 'channel') {
+        message.channel.send(ratingTable)
+      } else {
+        message.author.createDM().then((dm) => {
+          dm.send(ratingTable)
+        })
+      }
+      
     })
 
     message.delete()
