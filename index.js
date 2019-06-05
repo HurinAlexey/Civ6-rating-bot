@@ -108,14 +108,16 @@ client.on('message', message => {
               }
 
               if (modifier === 'scrap' && position !== 1) {
-                penalty = 0.5
+                penalty = (1 / 3)
               }
 
               if (modifiers[modifier] && position === 1) {
                 bonus = +modifiers[modifier]
               }
 
-              let score = (+multiplier[`ffa-${users.length}`][`rank-${rank}`][`position-${position}`] + bonus) * 200 * penalty
+              let score = Math.round( 
+                (+multiplier[`ffa-${users.length}`][`rank-${rank}`][`position-${position}`] + bonus) * 200 * penalty 
+              )
     
               actions.changeScore(message.mentions.users.get(item), item, score, guild)
             }).catch(e => {
