@@ -142,14 +142,17 @@ client.on('message', message => {
   }
 
   if (message.content.startsWith('!top')) {
-    const count = +message.content.split(' ')[1] || 2
+    const count = +message.content.split(' ')[1] || 20
+    const foundedModifier = message.content.match(/\(\w+\)/g)
+    let modifier
+    
+    if (foundedModifier) {
+        modifier = foundedModifier[0].substr(1, foundedModifier[0].length - 2)
+    }
 
-    actions.getTopUsers(count).then(users => {
+    actions.getTopUsers(count, modifier).then(users => {
       let ratingTable = ''
       
-      // for (let user of users) {
-      //   ratingTable += `<@${user.discordId}>\t ${user.rank}\t ${user.ratingScore}\n`
-      // }
       users.map((item, index) => {
         ratingTable += `**${index + 1}.** <@${item.discordId}>\t "${item.rank}"\t ${item.ratingScore}\n`
       })
