@@ -1,8 +1,8 @@
 {
     "scorewin": "0.5",
     "science": "1",
-    "religion": "2.5",
-    "military": "2.5",
+    "religion": "1.5",
+    "military": "1.5",
     "culture": "1.5",
-    "diplomacy": "3"
+    "diplomacy": "2"
 }
