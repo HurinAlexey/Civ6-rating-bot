@@ -150,7 +150,8 @@ module.exports.hasScorePermission = ({author, guild}) => {
 
 module.exports.getTopUsers = async (count) => {
     const users = await User.find({}).sort({ratingScore: -1})
-    return users.slice(0, count)
+    const quantity = count <= users.length ? count : users.length
+    return users.slice(0, quantity)
 }
 
 
